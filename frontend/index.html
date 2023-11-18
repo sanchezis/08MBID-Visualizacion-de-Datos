@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Israel Sánchez Llorens</title>
+
+    <!--
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.16/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3plus/1.9.2/d3plus.full.min.js"></script>
+
+    -->
+
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+      integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+      integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://raw.githubusercontent.com/npr/responsiveiframe/master/dist/jquery.responsiveiframe.js"
+      crossorigin="anonymous"
+    ></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      var ri = responsiveIframe();
+      ri.allowResponsiveEmbedding();
+    </script>
+    <script>
+      (function ($) {
+        $(function () {
+          $('iframe-item').responsiveIframe({ xdomain: '*' });
+        });
+      })(jQuery);
+    </script>
+    <script lang="js">
+            $(window).resize(function () {
+              resizeFrame(document.getElementsByClassName('embed-responsive-item'));
+            });
+
+            function resizeFrame(ff) {
+              for (f in ff) f.style.height = f.contentWindow.document.body.scrollHeight + 'px';
+            }
+
+
+            $(function () {
+
+      //setup these vars only once since they are static
+      var $myIFRAME   = $(".iframe-class"),//unless this collection of elements changes over time, you only need to select them once
+          ogWidth     = 700,
+          ogHeight    = 600,
+          ogRatio     = ogWidth / ogHeight,
+          windowWidth = 0,//store windowWidth here, this is just a different way to store this data
+          resizeTimer = null;
+
+      function setIFrameSize() {
+          if (windowWidth < 480) {
+
+              var parentDivWidth = $myIFRAME.parent().width(),//be aware this will still only get the height of the first element in this set of elements, you'll have to loop over them if you want to support more than one iframe on a page
+                  newHeight      = (parentDivWidth / ogRatio);
+
+              $myIFRAME.addClass("iframe-class-resize").css({ height : newHeight, width : parentDivWidth });
+          } else {
+              $myIFRAME.removeClass("iframe-class-resize").css({ width : '', height : '' });
+          }
+      }
+
+      $(window).resize(function () {
+
+          //only run this once per resize event, if a user drags the window to a different size, this will wait until they finish, then run the resize function
+          //this way you don't blow up someone's browser with your resize function running hundreds of times a second
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(function () {
+              //make sure to update windowWidth before calling resize function
+              windowWidth = $(window).width();
+
+              setIFrameSize();
+
+          }, 75);
+
+      }).trigger("click");//run this once initially, just a different way to initialize
+      });
+    </script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/fitvids/1.2.0/jquery.fitvids.min.js"
+      integrity="sha512-/2sZKAsHDmHNoevKR/xsUKe+Bpf692q4tHNQs9VWWz0ujJ9JBM67iFYbIEdfDV9I2BaodgT5MIg/FTUmUv3oyQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script>
+      $('.display').fitVids();
+    </script>
+  </head>
+
+  <!-- =================================================================================================================================================================================  -->
+  <body>
+    <div id="app">
+      <br />
+      <br />
+
+      <!--
+        <div class="container">
+        <header class="d-flex justify-content-center py-3">
+            <ul class="nav nav-pills">
+            <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+        </ul>
+        </header>
+        </div>
+        -->
+
+      <header>
+        <!-- Navbar -->
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+          <div class="container-fluid">
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-mdb-toggle="collapse"
+              data-mdb-target="#navbarExample01"
+              aria-controls="navbarExample01"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarExample01">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item active">
+                  <a class="nav-link" aria-current="page" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#introduction">Introducción</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#objectives">Objetivos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#analysis">Análisis</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#results">Resultados</a>
+                </li>
+              </ul>
+              <ul class="navbar-nav flex-row">
+                <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    href="https://israelllorens.stackblitz.io"
+                    target="_blank"
+                  >
+                    https://israelllorens.stackblitz.io
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+
+        <!-- Navbar -->
+
+        <!-- Background image -->
+        <div
+          class="p-5 text-center bg-image align-items-center"
+          style="
+            background-image: url('https://img.freepik.com/free-photo/stack-spiral-notepad-stethoscope-white-backdrop_23-2148129579.jpg?w=2000&t=st=1700273606~exp=1700274206~hmac=558883de36ef82df50bf739f31d8b6550bab8d62291fba1c4bae3b6627615460');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 100%;
+          "
+        >
+          <div class="mask" style="background-color: rgba(0, 0, 0, 0.6)">
+            <div
+              class="d-flex justify-content-center align-items-center h-100 p-3"
+            >
+              <div class="text-white">
+                <h4 class="display-3 mt-5">
+                  Vigilancia sobre los virus de propagación aérea <br />en
+                  California (Estados Unidos)
+                </h4>
+                <h3><small class="text-muted">2010 ~ 2020</small></h3>
+                <h4 class="py-3">Visualización Trabajo Práctico</h4>
+                <h4 class="">Máster en Big Data y Ciencias de Datos</h4>
+
+                <a
+                  class="btn btn-outline-light btn-md m-5"
+                  href="https://www.linkedin.com/in/israel-llorens/"
+                  role="button"
+                  target="_blank"
+                  ><span class="negrita">Nombre:</span> Israel Sánchez Llorens
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Background image -->
+      </header>
+
+      <div class="w-100 d-none d-md-block m-5"></div>
+      <!-- ************************************************************************ -->
+      <div class="container-fluid">
+        <h3 class="lead fw-bold text-decoration py-3 display-6">
+          Información sobre el trabajo
+        </h3>
+        <span class="negrita">StackBlitz URL:</span>
+        <a href="https://israelllorens.stackblitz.io" target="_blank">
+          https://israelllorens.stackblitz.io
+        </a>
+        <br />
+        <span class="negrita">Github URL:</span>
+        <a
+          href="https://github.com/sanchezis/08MBID-Visualizacion-de-Datos"
+          target="_blank"
+        >
+          https://github.com/sanchezis/08MBID-Visualizacion-de-Datos
+        </a>
+        <br />
+
+        <span class="negrita">Google Colab:</span>
+        <a
+          href="https://colab.research.google.com/drive/13xtt-RAFnGLCnggBbhD_uLMxZ47IA1zF?usp=sharing"
+          target="_blank"
+          >https://colab.research.google.com/drive/13xtt-RAFnGLCnggBbhD_uLMxZ47IA1zF?usp=sharing</a
+        >
+      </div>
+
+      <!-- ************************************************************************  Introduccion -->
+      <div id="introduction" class="container-fluid my-5 pt-5">
+        <h3 class="lead fw-bold text-decoration display-6 py-3">
+          Introducción
+        </h3>
+
+        <div class="row px-2">
+          <div
+            class="col-sm-12 col-xxl-6"
+            style="border: 0px solid lightgrey; align-content: left"
+          >
+            <p class="lead">
+              En este trabajo queremos ofrecer un estudio sobre varios
+              situaciones que ocurren en la vida de cada paciente que se infecta
+              con un virus aéreo común. Entre estos virus se pueden encontrar la
+              Influenza, la gripe común, entre otros más peligrosos como el
+              Rinovirus o el coronavirus. En este momento lo que más no interesa
+              es intentar realizar un simple estudio, mediante las graficas con
+              diferentes técnicas, las tendencias en cuanto a la situación
+              perosnal de los seguros médicos, y más adelante las tendencias de
+              los contagios con los virus que pueden acarrear un impacto en la
+              región bajo estudio.
+            </p>
+          </div>
+        </div>
+
+        <div class="row px-2">
+          <div
+            class="col-sm-12 col-xxl-6"
+            style="border: 0px solid lightgrey; align-content: left"
+          >
+            <h4 class="lead fw-bold text-decoration py-3">Audiencia</h4>
+            <p class="lead">
+              El público al que se destina este trabajo, varía desde el
+              puramente profesional médico, que desee conocer el estado de los
+              contagios ocurridos a nivel geográfico. Como aquiel público en
+              general, que desee conocer la información de como puede mejorar
+              sus salud, así como el gasto destinado a su seguro médico.
+            </p>
+            <p class="lead">
+              Es posible también conocer, en gran medida, cómo se comportan los
+              virus aéreos y como puede el gran público, protegerse de los
+              mismos.
+            </p>
+          </div>
+        </div>
+
+        <div class="row px-2">
+          <div
+            class="col-sm-12 col-xxl-6"
+            style="border: 0px solid lightgrey; align-content: left"
+          >
+            <h4 class="lead fw-bold text-decoration py-3">Resumen</h4>
+            <p class="lead">
+              Concluiremos nuestro estudio con un conjunto de gráficos mostrando
+              para cara región del estado de California, su evolución en cuanto
+              a contagios de estos virus. Con ello se pretende tener una idea
+              del efecto del coste de una seguridad social, con respecto al
+              valor que recae en los posibles contagios de virus aéreos.
+            </p>
+            <p class="lead">
+              A grandes rasgos, visualizaremos la situación en el caso de los
+              seguros, podemos ofercer una visualización de barras donde se
+              compara año a año el estado de los costes por habitante en la
+              región South en promedio.
+            </p>
+          </div>
+        </div>
+
+        <!-- Force next columns to break to new line at md breakpoint and up -->
+        <div class="w-100 d-none d-md-block"></div>
+        <div class="row px-2">
+          <div
+            class="col-sm-12 col-xxl-6"
+            style="border: 0px solid lightgrey; align-content: left"
+          >
+            <div id="viz1"></div>
+          </div>
+
+          <div
+            class="col-sm-12 col-xxl-6"
+            style="border: 0x solid lightgrey; align-content: left"
+          >
+            <div id="viz2"></div>
+          </div>
+        </div>
+
+        <!-- Force next columns to break to new line at md breakpoint and up -->
+        <div class="w-100 d-none d-md-block"></div>
+        <div class="row px-2">
+          <div
+            class="col-sm-12 col-xxl-12"
+            style="border: 1px solid lightgrey; align-content: left"
+          >
+            <div id="viz3"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ************************************************************************ Objetivos -->
+      <div id="objectives" class="container-fluid y-5 pt-5">
+        <h3 class="lead fw-bold text-decoration display-6 py-3">Objetivos</h3>
+
+        <div class="row px-2">
+          <div
+            class="col-sm-12 col-xxl-6"
+            style="border: 0px solid lightgrey; align-content: left"
+          >
+            <p class="lead">
+              En el sisguiente trabajo, vamos a realizar un estudio basado en
+              lso diferentes patógenos virales aéreos, producidos en el estado
+              de California, durante la décda entre el 2010 al 2020.
+              Observaremos los datos como influyen en el tiempo y realizaremos
+              un estudio de evolución de los tipos de virus la influenza tipo A
+              (y sus subtipos), B y el llamado RSV de Infección Respiratiria
+              Sinudal o del inglés (Respiratory Syncytial Virus Infection).
+            </p>
+            <p class="lead">
+              En un estudio inicial, destacremos los núcleos de población del
+              estado de California, así como un pequeño estudio sobre el coste
+              por núcleo familiar del seguro médico. Observaremos cómo
+              direferentes patrones que seguimos en nuestra salud, impactan en
+              el coste de la seguridad social para el gobierno.
+            </p>
+          </div>
+        </div>
+
+        <!-- Force next columns to break to new line at md breakpoint and up -->
+        <div class="w-100 d-none d-md-block"></div>
+        <div class="row px-2">
+          <!-- 1 -->
+          <div
+            class="col-sm-12 col-xxl-6"
+            style="border: 0px solid lightgrey; align-content: left"
+          >
+            <iframe
+              title="Comparativa del precio del seguro médico"
+              aria-label="Diagrama de dispersión"
+              id="datawrapper-chart-GzOFF"
+              src="https://datawrapper.dwcdn.net/GzOFF/1/"
+              scrolling="no"
+              frameborder="0"
+              style="width: 0; min-width: 100% !important; border: none"
+              height="640"
+              data-external="1"
+            ></iframe>
+            <script type="text/javascript">
+              !(function () {
+                'use strict';
+                window.addEventListener('message', function (a) {
+                  if (void 0 !== a.data['datawrapper-height']) {
+                    var e = document.querySelectorAll('iframe');
+                    for (var t in a.data['datawrapper-height'])
+                      for (var r = 0; r < e.length; r++)
+                        if (e[r].contentWindow === a.source) {
+                          var i = a.data['datawrapper-height'][t] + 'px';
+                          e[r].style.height = i;
+                        }
+                  }
+                });
+              })();
+            </script>
+          </div>
+        </div>
+
+        <!-- Force next columns to break to new line at md breakpoint and up -->
+        <div class="w-100 d-none d-md-block"></div>
+        <div class="row px-2">
+          <!-- 3 -->
+          <div
+            class="col-sm-12 col-xxl-6"
+            style="border: 1px solid lightgrey; align-content: left"
+          >
+            <div class="float-start">
+              <p class="fs-2">(3)</p>
+            </div>
+            <!-- -->
+            <!-- -->
+            <div class="display p-5"></div>
+          </div>
+
+          <!-- 4 -->
+          <div
+            class="col-sm-12 col-xxl-6"
+            style="border: 1px solid lightgrey; align-content: left"
+          >
+            <div class="float-start">
+              <p class="fs-2">(4)</p>
+            </div>
+            <!-- -->
+            <!-- -->
+            <div class="display p-5"></div>
+          </div>
+        </div>
+
+        <!-- Force next columns to break to new line at md breakpoint and up -->
+        <div class="w-100 d-none d-md-block"></div>
+        <div class="row px-2">
+          <div
+            class="col-sm-12 col-xxl-12"
+            style="border: 1px solid lightgrey; align-content: left"
+          >
+            <!-- -->
+            <!-- -->
+          </div>
+        </div>
+      </div>
+
+      <!-- ************************************************************************ Análisis -->
+      <div id="analysis" class="container-fluid y-5 pt-5">
+        <h3 class="lead fw-bold text-decoration display-6 py-3">Análisis</h3>
+        <div class="row px-2">
+          <!-- 1 -->
+          <div
+            class="col-sm-12 col-xxl-6"
+            style="border: 1px solid lightgre; align-content: left"
+          >
+            <div class="float-start"><p class="fs-2">(1)</p></div>
+            <!-- -->
+            <!-- -->
+            <div class="display p-5"></div>
+          </div>
+
+          <!-- 2 -->
+          <div
+            class="col-sm-12 col-xxl-6"
+            style="border: 1px solid lightgrey; align-content: left"
+          >
+            <div class="float-start"><p class="fs-2">(2)</p></div>
+            <!-- -->
+            <!-- -->
+            <div class="display p-5"></div>
+          </div>
+        </div>
+
+        <!-- Force next columns to break to new line at md breakpoint and up -->
+        <div class="w-100 d-none d-md-block"></div>
+        <div class="row px-2">
+          <!-- 3 -->
+          <div
+            class="col-sm-12 col-xxl-6"
+            style="border: 1px solid lightgrey; align-content: left"
+          >
+            <div class="float-start">
+              <p class="fs-2">(3)</p>
+            </div>
+            <!-- -->
+            <!-- -->
+            <div class="display p-5"></div>
+          </div>
+
+          <!-- 4 -->
+          <div
+            class="col-sm-12 col-xxl-6"
+            style="border: 1px solid lightgrey; align-content: left"
+          >
+            <div class="float-start">
+              <p class="fs-2">(4)</p>
+            </div>
+            <!-- -->
+            <!-- -->
+            <div class="display p-5"></div>
+          </div>
+        </div>
+
+        <div class="row px-2 my-5">
+          <div class="col-sm-12 col-xxl-12" style="border: 1px solid lightgrey">
+            <div class="accordion accordion-flush" id="accordionFlush">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseOne"
+                    aria-expanded="false"
+                    aria-controls="flush-collapseOne"
+                  >
+                    <p class="fs-4">
+                      Pregunta: ¿Cuál de los gráficos anteriores consideras
+                      mejor, visualmente?
+                    </p>
+                  </button>
+                </h2>
+                <div
+                  id="flush-collapseOne"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="flush-headingOne"
+                  data-bs-parent="#accordionFlushExample"
+                >
+                  <div class="accordion-body">
+                    <p class="fs-6">
+                      A mi preferencia, éste último gráfico (número 4) es el más
+                      idóneo a la hora de presentar la información. En realidad,
+                      cualquiera de ellos es bueno, teniendo en cuenta que
+                      habría que considerar, el público objetivo. Pero considero
+                      que este último es el mejor, dado que la información de
+                      los países se encuentra legible de manera natural; tal y
+                      como se lee de arriba a abajo. Algo que hace que a la
+                      vista, el ojo no tenga que estar mirando de lado o girar
+                      la cabeza para leer los países. Algo que se tendría que
+                      hacer en los otros gráficos debido a su configuración del
+                      eje x. A su vez, se encuentra ordenada de mayor a menor,
+                      lo cual facilita en el cerebro la correspondencia
+                      descendente natural y comparación directamente, entre un
+                      país y otro. Si nos centramos en el conocimiento que
+                      proviene del mensaje, mediante la coloración de "España"
+                      con un color diferente; hace destacar la posición de este
+                      país con respecto al resto.
+                    </p>
+                    <p class="fs-6">
+                      Si que es verdad que en comparación, el gráfico no muestra
+                      un estadístico de las emisiones con respecto a sus metros
+                      cuadrados. Algo a lo que igual nos daría mayor información
+                      de Co2 por metro cuadrado, y brindaría de una mayor
+                      información, mucho más normalizada. Obviamente, no puedo
+                      comparar un país pequeño con uno de otro tamaño mayor. Por
+                      tanto, para todos los gráficos, esto sería un punto a
+                      tomar encuenta independientemente.
+                    </p>
+                    <p class="fs-6">
+                      Así mismo, el gráfico del "pie chart" o de tarta, consigue
+                      un buen efecto en mostrar el país más relevante. Pero en
+                      algunos casos el cerebro no es capaz de cuantificar los
+                      ángulos de los países más pequeños, haciendo esta
+                      comparativa casi irrelevante o poco significativa. En todo
+                      caso, si nuestro mensaje es el de transmitir la
+                      comparartiva de un país con el resto; con este gráfico, sí
+                      que se consigue dar esa información. Al igual que en el
+                      gráfico que he escogido como el mejor.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Force next columns to break to new line at md breakpoint and up -->
+        <div class="w-100 d-none d-md-block"></div>
+        <div class="row px-2">
+          <div
+            class="col-sm-12 col-xxl-12"
+            style="border: 1px solid lightgrey; align-content: left"
+          >
+            <!-- -->
+            <!-- -->
+          </div>
+        </div>
+      </div>
+
+      <!-- ************************************************************************ Resultados y Conclusión -->
+      <div id="results" class="container-fluid y-5 pt-5 mb-3">
+        <h3 class="lead fw-bold text-decoration display-6 py-3">
+          Resultados y Conclusión
+        </h3>
+
+        <div
+          class="col-sm-12 col-xxl-6"
+          style="border: 0px solid lightgrey; align-content: left"
+        >
+          <p class="lead">
+            El trabajo ha sido contruido utilizando como Backend, el Google
+            Colab que funciona como serivicio de ejecuión alojado para las
+            tareas de ingeriería de datos, limpieza del conjunto de información,
+            elaboración de los conjuntos de visualización e implementación y
+            salidas de los gráficos resultados. El repositorio Github, se
+            utiliza como centro de integración y guarda del proyecto, así como
+            los datos procesados en tipo csv.
+          </p>
+          <p class="lead">
+            El servicio de DataWrapper y StackBlitz, realizan la parte visual
+            extraída y proveniente del Github. De esta forma, integra un
+            pipeline completo de integración contínua y desarrollo completo.
+          </p>
+        </div>
+
+        <div class="row px-2">
+          <div
+            class="col-sm-12 col-xxl-6"
+            style="border: 0px solid lightgrey; align-content: left"
+          >
+            <h4 class="lead fw-bold text-decoration py-3">
+              Aorendizaje y comentario
+            </h4>
+            <p class="lead">
+              El ocnjunto de datos ha sido extraído del utilizado en los
+              trabajos de "Estadística Avanzada" y de "Minería de datos" del
+              mismo curso.
+            </p>
+            <p class="lead"></p>
+          </div>
+
+          <div class="row px-2">
+            <div
+              class="col-sm-12 col-xxl-6"
+              style="border: 0px solid lightgrey; align-content: left"
+            >
+              <h4 class="lead fw-bold text-decoration py-3">Herramientas</h4>
+              <p class="lead">Seaborn, Matplotlib. D3.js</p>
+              <p class="lead">Google Colab. Github.</p>
+              <p class="lead">DataWrapper.</p>
+            </div>
+
+            <!-- Force next columns to break to new line at md breakpoint and up -->
+            <div class="w-100 d-none d-md-block"></div>
+            <div class="row px-2">
+              <div
+                class="col-sm-12 col-xxl-12"
+                style="border: 1px solid lightgrey; align-content: left"
+              >
+                <!-- -->
+                <!-- -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ************************************************************************ -->
+      <!-- ************************************************************************ -->
+      <!-- ************************************************************************ -->
+      <!-- Footer -->
+      <section class="" style="margin-top: 13em">
+        <footer
+          class="text-center text-white"
+          style="background-color: #0a4275"
+        >
+          <div class="container p-4 pb-0">
+            <section class="">
+              <p class="d-flex justify-content-center align-items-center">
+                <span class="me-3"></span>
+              </p>
+            </section>
+          </div>
+
+          <div
+            class="text-center p-3"
+            style="background-color: rgba(0, 0, 0, 0.2)"
+          >
+            © 2023 Copyright: 08MBID - Visualización de Datos
+          </div>
+        </footer>
+      </section>
+    </div>
+  </body>
+</html>
