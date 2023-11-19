@@ -78,3 +78,40 @@ svg
 // Create y-axis
 var yAxis = d3.axisLeft(yScale);
 svg.append('g').call(yAxis);
+
+
+
+
+
+
+
+
+
+<iframe
+src=""
+title="Comparativa del precio del seguro médico"
+aria-label="Diagrama BoxPlot"
+id="fig1_boxplot"
+scrolling="no"
+frameborder="0"
+style="width: 0; min-width: 100% !important; border: none"
+height="640"
+data-external="1"
+></iframe>
+<script>
+  fetch('https://raw.githubusercontent.com/sanchezis/sanchezis.github.io/master/fig1_boxplot.html', {
+      mode: 'cors',
+      headers: {
+          'Access-Control-Allow-Origin':'*'
+      }
+      })
+    .then(function(response) {
+      console.log(response.xml())
+      return response.json();
+    }).then(function(data) {
+      iframe = document.getElementById('github-iframe');
+      alert(data["html"]);
+      iframe.src = 'data:text/html,' + encodeURIComponent(data['content']);
+    });
+
+</script>

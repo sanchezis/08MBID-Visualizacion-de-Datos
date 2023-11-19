@@ -22,10 +22,22 @@
     <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    
-    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js" charset="utf-8"></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+
+    <script
+      src="https://cdn.plot.ly/plotly-2.27.0.min.js"
+      charset="utf-8"
+    ></script>
 
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -48,26 +60,7 @@
       crossorigin="anonymous"
     ></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script>
-      var ri = responsiveIframe();
-      ri.allowResponsiveEmbedding();
-    </script>
-    <script>
-      (function ($) {
-        $(function () {
-          $('iframe-item').responsiveIframe({ xdomain: '*' });
-        });
-      })(jQuery);
-    </script>
     <script lang="js">
-            $(window).resize(function () {
-              resizeFrame(document.getElementsByClassName('embed-responsive-item'));
-            });
-
-            function resizeFrame(ff) {
-              for (f in ff) f.style.height = f.contentWindow.document.body.scrollHeight + 'px';
-            }
-
 
             $(function () {
 
@@ -329,16 +322,44 @@
         <div class="w-100 d-none d-md-block"></div>
         <div class="row px-2">
           <div
-            class="col-sm-12 col-xxl-12"
+            class="col-sm-12 col-xxl-12 text-center"
             style="border: 0px solid lightgrey; align-content: left"
           >
-            <div id="viz1"></div>
+            <div class="my-5"
+            style="
+            border:0;
+            max-height: 100%;
+             max-width: 100%;
+            background-image: url('https://raw.githubusercontent.com/sanchezis/08MBID-Visualizacion-de-Datos/main/frontend/fig1_boxplot.png');
+            background-size: cover;
+            align-content: center;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 1200px;
+            height: 500px;
+            ;" ></div>
+
           </div>
 
           <div
             class="col-sm-12 col-xxl-12"
             style="border: 0x solid lightgrey; align-content: left"
           >
+          <p class="lead">
+            En el gráfico se observa cómo existe una similitur entre sexos a la hora de 
+            realizar los pagos a las compañías aseguradoras. Pero la relación cambia con respecto
+            si el asegurado es Fumador o no, prácticamente incrementando en cerca de unos 10K$ 
+            hasta los 20K$.
+          </p>
+          <p class="lead">
+            Con este gráfico se pretende realizar un vistazo previo a nuestro análisis.
+            Se utiliza un gráfico de tipo de BoxPlot, donde se puede observar la dispersión de los datos.
+            Añadido, utilizamos los puntos donde se observa que en el caso de los hombres, existen
+            dos núcleas en el caso de ser Fumador. Algo similiar, aunque no tan definido en el caso de las
+            mujeres.
+          </p>
+            <div id="viz1"></div>
             <div id="viz2"></div>
           </div>
         </div>
@@ -348,7 +369,7 @@
         <div class="row px-2">
           <div
             class="col-sm-12 col-xxl-12"
-            style="border: 1px solid lightgrey; align-content: left"
+            style="border: 0px solid lightgrey; align-content: left"
           >
             <div id="viz3"></div>
           </div>
@@ -371,10 +392,13 @@
               Observaremos los datos como influyen en el tiempo y realizaremos
               un estudio de evolución de los tipos de virus la influenza tipo A
               (y sus subtipos), B y el llamado RSV de Infección Respiratiria
-              Sinudal o del inglés (Respiratory Syncytial Virus Infection).
-              Se pretende realizar una idea básica, aunque existen trabajos 
-              más elavorados, como por ejemplo: 
-              <a href="https://gis.cdc.gov/grasp/fluview/fluportaldashboard.html">CDC.gov</a>
+              Sinudal o del inglés (Respiratory Syncytial Virus Infection). Se
+              pretende realizar una idea básica, aunque existen trabajos más
+              elavorados, como por ejemplo:
+              <a
+                href="https://gis.cdc.gov/grasp/fluview/fluportaldashboard.html"
+                >CDC.gov</a
+              >
             </p>
             <p class="lead">
               En un estudio inicial, destacremos los núcleos de población del
@@ -391,7 +415,7 @@
         <div class="row px-2">
           <!-- 1 -->
           <div
-            class="col-sm-12 col-xxl-12"
+            class="col-sm-12 col-xxl-12 mt-5 m-5"
             style="border: 0px solid lightgrey; align-content: left"
           >
             <iframe
@@ -471,7 +495,7 @@
       <div id="analysis" class="container-fluid y-5 pt-5">
         <h3 class="lead fw-bold text-decoration display-6 py-3">Análisis</h3>
         <div class="row px-2">
-            <div
+          <div
             class="col-sm-12 col-xxl-12"
             style="border: 1px solid lightgrey; align-content: left"
           >
@@ -482,8 +506,6 @@
             <!-- -->
             <div class="display p-5"></div>
           </div>
-
-
         </div>
 
         <!-- Force next columns to break to new line at md breakpoint and up -->
@@ -575,8 +597,6 @@
 
         <!-- Force next columns to break to new line at md breakpoint and up -->
         <div class="w-100 d-none d-md-block"></div>
-
-
       </div>
 
       <!-- ************************************************************************ Resultados y Conclusión -->
@@ -627,15 +647,16 @@
               style="border: 0px solid lightgrey; align-content: left"
             >
               <h4 class="lead fw-bold text-decoration py-3">Herramientas</h4>
-              <p class="lead">Seaborn, Matplotlib, para diferentes visualizaciones. Leaflet.js 
-                para la representación de los mapas.</p>
-              <p class="lead">Google Colab. Github. para el mantenimiento del código.</p>
+              <p class="lead">
+                Seaborn, Matplotlib, para diferentes visualizaciones. Leaflet.js
+                para la representación de los mapas.
+              </p>
+              <p class="lead">
+                Google Colab. Github. para el mantenimiento del código.
+              </p>
               <p class="lead">DataWrapper.</p>
               <p class="lead">StackBlitz. para la visualización FrontEnd.</p>
             </div>
-
-            
-
           </div>
         </div>
       </div>
@@ -665,9 +686,6 @@
           </div>
         </footer>
       </section>
-
-
-
     </div>
   </body>
 </html>

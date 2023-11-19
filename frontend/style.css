@@ -8,7 +8,11 @@ h2 {
 .selector-for-some-widget {
   box-sizing: content-box;
 }
-
+img{border:0;}
+img {
+  width: 100%;
+  height: auto;
+}
 .responsive-container {
   position: relative;
   overflow: hidden;
