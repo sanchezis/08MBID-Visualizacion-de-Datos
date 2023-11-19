@@ -149,3 +149,71 @@ Plotly.newPlot('viz2', datab, layoutb);
 //Plotly.newPlot('viz9', dataa, layouta);
 //Plotly.newPlot('viz10', datab, layoutb);
 //Plotly.newPlot('viz11', dataa, layouta);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Your GeoJSON data for California regions (simplified example)
+var californiaGeoJSON = {
+  "type": "FeatureCollection",
+  "features": [
+      // Include your GeoJSON features for each region in California
+      // Example feature:
+      {
+          "type": "Feature",
+          "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                  // Add coordinates for the polygon of the region
+              ]
+          },
+          "properties": {
+              "regionName": "Region 1",
+              "value": 45 // Add your data value for this region
+          }
+      },
+      // Add more features for other regions
+  ]
+};
+
+// Set up data for the choropleth map
+var data = [{
+  type: 'choropleth',
+  geojson: californiaGeoJSON,
+  locations: californiaGeoJSON.features.map(feature => feature.properties.regionName),
+  z: californiaGeoJSON.features.map(feature => feature.properties.value),
+  colorscale: 'Viridis', // You can choose a different colorscale
+  colorbar: { title: 'Data Value' }
+}];
+
+// Set up layout for the map
+var layout = {
+  geo: {
+      scope: 'usa',
+      showland: true,
+      landcolor: 'rgb(217, 217, 217)',
+      subunitcolor: 'rgb(255,255,255)',
+      countrycolor: 'rgb(255,255,255)',
+      countrywidth: 0.5,
+      subunitwidth: 0.5
+  },
+  margin: { l: 0, r: 0, b: 0, t: 0 },
+};
+
+// Create the choropleth map
+Plotly.newPlot('choroplethMap', data, layout);
