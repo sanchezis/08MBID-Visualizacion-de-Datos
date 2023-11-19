@@ -148,3 +148,4 @@ jobs/*
 data.csv
 output.txt
 
+.vscode/settings.json
