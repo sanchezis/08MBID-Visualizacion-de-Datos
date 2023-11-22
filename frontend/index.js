@@ -165,6 +165,8 @@ Plotly.newPlot('viz2', datab, layoutb);
 
 
 
+var geoJsonUrl =
+  'https://gis-calema.opendata.arcgis.com/datasets/59d92c1bf84a438d83f78465dce02c61_0.geojson?outSR=%7B%22latestWkid%22%3A3857%2C%22wkid%22%3A102100%7D';
 
 
 
