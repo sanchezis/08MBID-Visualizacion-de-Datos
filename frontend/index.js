@@ -5,7 +5,7 @@ import './style.css';
 const appDiv = document.getElementById('app');
 
 const clinical_data =
-  'https://raw.githubusercontent.com/sanchezis/08MBID-Visualizacion-de-Datos/main/data/clinical-sentinel-laboratory-influenza-and-other-respiratory-virus-surveillance-data-by-region-and-influenza-season.csv';
+  'https://raw.githubusercontent.com/sanchezis/08MBID-Visualizacion-de-Datos/main/sample_data/clinical-sentinel-laboratory-influenza-and-other-respiratory-virus-surveillance-data-by-region-and-influenza-season.csv';
 
 const dataa = [
   {
@@ -150,37 +150,43 @@ Plotly.newPlot('viz2', datab, layoutb);
 //Plotly.newPlot('viz10', datab, layoutb);
 //Plotly.newPlot('viz11', dataa, layouta);
 
+// Fetch GeoJSON data
+/*
+fetch(
+  'https://raw.githubusercontent.com/Esri/gis-tools-for-hadoop/master/samples/data/counties-data/california-counties.json'
+)
+  .then((response) => response.json())
+  .then((data) => {
+    // Extract GeoJSON features
+    var geojsonFeatures = data.features;
+    // Extract feature properties (you may need to adjust this based on your GeoJSON structure)
+    var featureProperties = geojsonFeatures.map(
+      (feature) => feature.attributes
+    );
+    // Extract feature geometry
+    var featureGeometry = geojsonFeatures.map(
+      (feature) => feature.geometry.rings
+    );
 
-
-
-  // Fetch GeoJSON data
-  fetch("https://raw.githubusercontent.com/Esri/gis-tools-for-hadoop/master/samples/data/counties-data/california-counties.json")
-    .then(response => response.json())
-    .then(data => {
-      // Extract GeoJSON features
-      var geojsonFeatures = data.features;
-      // Extract feature properties (you may need to adjust this based on your GeoJSON structure)
-      var featureProperties = geojsonFeatures.map(feature => feature.attributes);
-      // Extract feature geometry
-      var featureGeometry = geojsonFeatures.map(feature => feature.geometry.rings);
-    
-    
-var map = L.map('map').setView([-119, 37.4], 10);
-var tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    var map = L.map('choroplethMap').setView([-119, 37.4], 10);
+    var tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution:
+        '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map);
 
     console.log('OK');
+    //L.geoJson(featureGeometry).addTo(map);
+  })
+  .catch((error) => console.error('Error fetching GeoJSON:', error));
 
-    
-L.geoJson(featureGeometry).addTo(map);
-    
-    
-    
-    
-    
-    
-    
-    })
-    .catch(error => console.error('Error fetching GeoJSON:', error));
+var map = L.map('choroplethMap').setView([37.8, -96], 4);
+
+var tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+  attribution:
+    '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+}).addTo(map);
+
+L.geoJson(statesData).addTo(map);
+*/
