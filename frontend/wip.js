@@ -115,3 +115,155 @@ data-external="1"
     });
 
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  // Fetch GeoJSON data
+  fetch("https://raw.githubusercontent.com/Esri/gis-tools-for-hadoop/master/samples/data/counties-data/california-counties.json")
+    .then(response => response.json())
+    .then(data => {
+      // Extract GeoJSON features
+      var geojsonFeatures = data.features;
+
+      // Extract feature properties (you may need to adjust this based on your GeoJSON structure)
+      var featureProperties = geojsonFeatures.map(feature => feature.attributes);
+
+      // Extract feature geometry
+      var featureGeometry = geojsonFeatures.map(feature => feature.geometry.rings);
+
+      // Create a choropleth map
+      var map = Plotly.newPlot('map', [{
+        type: 'choroplethmapbox',
+        geojson: data,
+        locations: featureProperties.map(properties => properties.yourLocationProperty), // Replace with your GeoJSON property
+        z: featureProperties.map(properties => properties.yourValueProperty), // Replace with your GeoJSON property
+        colorscale: 'Viridis', // You can choose other color scales
+        colorbar: { title: 'Número de Positivos Clínicos' }, // Customize color bar
+      }], {
+        mapbox: { style: 'mapbox://styles/mapbox/light-v9', center: 
+                 { lon: -119, lat: 37.4 }, 
+                 zoom: 10 
+                }, // Adjust center and zoom as needed
+      });
+
+    })
+    .catch(error => console.error('Error fetching GeoJSON:', error));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Fetch GeoJSON data
+  fetch("https://raw.githubusercontent.com/Esri/gis-tools-for-hadoop/master/samples/data/counties-data/california-counties.json")
+    .then(response => response.json())
+    .then(data => {
+      // Extract GeoJSON features
+        console.log('OK');
+    
+    
+    
+var map = L.map('map').setView([-119, 37.4], 10);
+var tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    
+// L.geoJson(data).addTo(map);
+    
+    
+    
+    
+    
+    
+    
+    })
+    .catch(error => console.error('Error fetching GeoJSON:', error));
+
+
+
+
+
+
+
+
+
+
+  // Fetch GeoJSON data
+  fetch("https://raw.githubusercontent.com/Esri/gis-tools-for-hadoop/master/samples/data/counties-data/california-counties.json")
+    .then(response => response.json())
+    .then(data => {
+      // Extract GeoJSON features
+      var geojsonFeatures = data.features;
+      // Extract feature properties (you may need to adjust this based on your GeoJSON structure)
+      var featureProperties = geojsonFeatures.map(feature => feature.attributes);
+      // Extract feature geometry
+      var featureGeometry = geojsonFeatures.map(feature => feature.geometry.rings);
+    
+    
+var map = L.map('map').setView([-119, 37.4], 10);
+var tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    console.log('OK');
+
+    
+L.geoJson(featureGeometry).addTo(map);
+    
+    
+    
+    })
+    .catch(error => console.error('Error fetching GeoJSON:', error));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
